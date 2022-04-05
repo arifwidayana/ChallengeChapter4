@@ -1,8 +1,13 @@
-package com.arifwidayana.challengechapter4.model
+package com.arifwidayana.challengechapter4.model.database
 
+import android.os.Parcelable
+import androidx.room.Entity
 import androidx.room.PrimaryKey
+import kotlinx.parcelize.Parcelize
 
-data class Fudamentals(
+@Entity
+@Parcelize
+data class StocksEntity(
     @PrimaryKey(autoGenerate = true) var id: Int,
     var codeStock: String?,
     var nameStock: String?,
@@ -12,4 +17,4 @@ data class Fudamentals(
     var earningsPerShare: Double,
     var sharePrice: Int?,
     val shareStock: Int?
-)
+) : Parcelable
