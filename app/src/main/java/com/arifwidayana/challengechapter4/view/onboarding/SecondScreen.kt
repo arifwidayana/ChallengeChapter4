@@ -7,10 +7,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.arifwidayana.challengechapter4.R
-import com.arifwidayana.challengechapter4.databinding.FragmentFirstScreenBinding
+import com.arifwidayana.challengechapter4.databinding.FragmentSecondScreenBinding
 
-class FirstScreen : Fragment() {
-    private var bind: FragmentFirstScreenBinding? = null
+class SecondScreen : Fragment() {
+    private var bind: FragmentSecondScreenBinding? = null
     private val binding get() = bind!!
 
     override fun onCreateView(
@@ -18,15 +18,15 @@ class FirstScreen : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        bind = FragmentFirstScreenBinding.inflate(inflater, container, false)
+        bind = FragmentSecondScreenBinding.inflate(inflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val firstScreen = activity?.findViewById<ViewPager2>(R.id.vp_on_boarding)
-        binding.tvFirstStep.setOnClickListener {
-            firstScreen?.currentItem = 1
+        val secondScreen = activity?.findViewById<ViewPager2>(R.id.vp_on_boarding)
+        binding.tvSecondStep.setOnClickListener {
+            secondScreen?.currentItem = 2
         }
     }
 }

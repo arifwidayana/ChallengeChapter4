@@ -6,20 +6,36 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arifwidayana.challengechapter4.R
+import com.arifwidayana.challengechapter4.adapter.onboarding.ViewPagerAdapter
+import com.arifwidayana.challengechapter4.databinding.FragmentViewPagerBinding
 
 class ViewPagerFragment : Fragment() {
+    private var bind: FragmentViewPagerBinding? = null
+    private val binding get() = bind!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        val view = inflater.inflate(R.layout.fragment_view_pager, container, false)
-        val fragmentList = arrayListOf<Fragment>(
-
-        )
-
-        return view
+        bind = FragmentViewPagerBinding.inflate(inflater, container, false)
+        return binding.root
     }
 
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        val fragmentList = arrayListOf<Fragment>(
+            FirstScreen(),
+            SecondScreen(),
+            ThirdScreen()
+        )
+
+        val adapter = ViewPagerAdapter(
+            fragmentList,
+            requireActivity().supportFragmentManager,
+            lifecycle
+        )
+
+        binding.vpOnBoarding.adapter = adapter
+    }
 }
