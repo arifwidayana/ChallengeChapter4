@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.adapter.onboarding
+package com.arifwidayana.challengechapter4.adapter
 
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager

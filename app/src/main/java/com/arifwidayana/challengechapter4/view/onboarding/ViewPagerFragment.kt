@@ -5,8 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arifwidayana.challengechapter4.R
-import com.arifwidayana.challengechapter4.adapter.onboarding.ViewPagerAdapter
+import com.arifwidayana.challengechapter4.adapter.ViewPagerAdapter
 import com.arifwidayana.challengechapter4.databinding.FragmentViewPagerBinding
 
 class ViewPagerFragment : Fragment() {
@@ -16,7 +15,7 @@ class ViewPagerFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         bind = FragmentViewPagerBinding.inflate(inflater, container, false)
         return binding.root
@@ -24,7 +23,7 @@ class ViewPagerFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        val fragmentList = arrayListOf<Fragment>(
+        val fragmentList = arrayListOf(
             FirstScreen(),
             SecondScreen(),
             ThirdScreen()

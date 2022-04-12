@@ -9,20 +9,16 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.databinding.FragmentThirdScreenBinding
+import com.arifwidayana.challengechapter4.model.utils.Constant
 
 class ThirdScreen : Fragment() {
     private var bind: FragmentThirdScreenBinding? = null
     private val binding get() = bind!!
 
-    companion object {
-        const val ON_BOARDING = "ONBOARDING"
-        const val FINISHED = "FINISHED"
-    }
-
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         // Inflate the layout for this fragment
         bind = FragmentThirdScreenBinding.inflate(inflater, container, false)
         return binding.root
@@ -37,10 +33,10 @@ class ThirdScreen : Fragment() {
     }
 
     private fun onBoardingFinish() {
-        val sharedPref = requireActivity().getSharedPreferences(ON_BOARDING, Context.MODE_PRIVATE)
+        val sharedPref = requireActivity().getSharedPreferences(Constant.ON_BOARDING, Context.MODE_PRIVATE)
         val editor = sharedPref.edit()
         editor.apply{
-            putBoolean(FINISHED, true)
+            putBoolean(Constant.FINISHED, true)
             apply()
         }
     }
