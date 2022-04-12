@@ -10,12 +10,6 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.ChallengeChapter4">
         <activity
-            android:name=".HomepageActivity"
-            android:exported="false" />
-        <activity
-            android:name=".SplashScreen"
-            android:exported="false"></activity>
-        <activity
             android:name=".MainActivity"
             android:exported="true">
             <intent-filter>
