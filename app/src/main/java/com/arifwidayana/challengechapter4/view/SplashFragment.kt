@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4
+package com.arifwidayana.challengechapter4.view
 
 import android.content.Context
 import android.os.Bundle
@@ -9,7 +9,8 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
-import com.arifwidayana.challengechapter4.view.onboarding.ThirdScreen
+import com.arifwidayana.challengechapter4.R
+import com.arifwidayana.challengechapter4.model.utils.Constant
 
 class SplashFragment : Fragment() {
 
@@ -29,7 +30,7 @@ class SplashFragment : Fragment() {
     }
 
     private fun onBoardingFinish(): Boolean {
-        val sharedPref = requireActivity().getSharedPreferences(ThirdScreen.ON_BOARDING, Context.MODE_PRIVATE)
-        return sharedPref.getBoolean(ThirdScreen.FINISHED, false)
+        val sharedPref = requireActivity().getSharedPreferences(Constant.ON_BOARDING, Context.MODE_PRIVATE)
+        return sharedPref.getBoolean(Constant.FINISHED, false)
     }
 }
