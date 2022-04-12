@@ -9,31 +9,39 @@ import com.arifwidayana.challengechapter4.model.dao.UserDao
 import com.arifwidayana.challengechapter4.model.database.StocksEntity
 import com.arifwidayana.challengechapter4.model.database.UserEntity
 
-@Database (entities = [UserEntity::class, StocksEntity::class], version = 1)
+@Database (entities = [UserEntity::class, StocksEntity::class], version = 1, exportSchema = false)
 abstract class StocksDatabase : RoomDatabase() {
     abstract fun stocksDao(): StocksDao
     abstract fun userDao(): UserDao
 
     companion object {
+        @Volatile
         private var userDatabase: StocksDatabase? = null
-        private var stocksDatabase: StocksDatabase? = null
 
-        fun getDataUser(context: Context): StocksDatabase? {
-            if (userDatabase == null) {
-                synchronized(StocksDatabase::class.java){
-                    userDatabase = Room.databaseBuilder(context.applicationContext, StocksDatabase::class.java, "User.db").build()
-                }
+        fun getData(context: Context): StocksDatabase {
+
+            return userDatabase ?: synchronized(this) {
+                val user = Room.databaseBuilder(
+                    context.applicationContext,
+                    StocksDatabase::class.java,
+                    "User.db"
+                )
+                    .fallbackToDestructiveMigration()
+                    .build()
+                userDatabase = user
+                user
             }
-            return userDatabase
+//            if (userDatabase == null) {
+//                synchronized(StocksDatabase::class.java){
+//                    userDatabase = Room.databaseBuilder(context.applicationContext, StocksDatabase::class.java, "User.db").build()
+//                }
+//            }
+//            return userDatabase
         }
 
-        fun getDataStocks(context: Context): StocksDatabase? {
-            if (stocksDatabase == null) {
-                synchronized(StocksDatabase::class.java){
-                    stocksDatabase = Room.databaseBuilder(context.applicationContext, StocksDatabase::class.java, "Stocks.db").build()
-                }
-            }
-            return stocksDatabase
+        fun destroyData() {
+            userDatabase = null
         }
     }
 }
+
