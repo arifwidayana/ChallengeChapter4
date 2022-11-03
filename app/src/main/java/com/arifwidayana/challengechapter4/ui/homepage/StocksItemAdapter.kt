@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.adapter
+package com.arifwidayana.challengechapter4.ui.homepage
 
 import android.annotation.SuppressLint
 import android.view.LayoutInflater
@@ -11,7 +11,7 @@ import com.arifwidayana.challengechapter4.ui.homepage.edit.EditStocksFragment
 import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi
-class StocksAdapter: RecyclerView.Adapter<StocksAdapter.StockHolder>() {
+class StocksItemAdapter: RecyclerView.Adapter<StocksItemAdapter.StockHolder>() {
     private val listStocks = mutableListOf<StocksEntity>()
     class StockHolder(val binding: ItemStocksBinding): RecyclerView.ViewHolder(binding.root)
 

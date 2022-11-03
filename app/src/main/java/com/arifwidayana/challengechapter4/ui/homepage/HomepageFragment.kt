@@ -10,7 +10,6 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifwidayana.challengechapter4.R
-import com.arifwidayana.challengechapter4.adapter.StocksAdapter
 import com.arifwidayana.challengechapter4.databinding.FragmentHomepageBinding
 import com.arifwidayana.challengechapter4.model.StocksDatabase
 import com.arifwidayana.challengechapter4.model.database.StocksEntity
@@ -26,7 +25,7 @@ class HomepageFragment : Fragment() {
     private val binding get() = bind!!
     private var stocks : StocksDatabase? = null
     private lateinit var shared : SharedPreference
-    private lateinit var adapter: StocksAdapter
+    private lateinit var adapter: StocksItemAdapter
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -42,7 +41,7 @@ class HomepageFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         shared = SharedPreference(requireContext())
         stocks = StocksDatabase.getData(requireContext())
-        adapter = StocksAdapter()
+        adapter = StocksItemAdapter()
 
         binding.rvStocks.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
         binding.rvStocks.adapter = adapter
@@ -86,7 +85,7 @@ class HomepageFragment : Fragment() {
             }
         }
 
-        adapter.setOnClickCallback(object : StocksAdapter.OnItemClickCallback{
+        adapter.setOnClickCallback(object : StocksItemAdapter.OnItemClickCallback{
             override fun onItemClicked(dataStocks: StocksEntity) {
                 EditStocksFragment().show(childFragmentManager, null)
             }
