@@ -6,18 +6,17 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arifwidayana.challengechapter4.adapter.ViewPagerAdapter
-import com.arifwidayana.challengechapter4.databinding.FragmentViewPagerBinding
+import com.arifwidayana.challengechapter4.databinding.FragmentOnBoardingBinding
 
-class ViewPagerFragment : Fragment() {
-    private var bind: FragmentViewPagerBinding? = null
+class OnBoardingFragment : Fragment() {
+    private var bind: FragmentOnBoardingBinding? = null
     private val binding get() = bind!!
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        // Inflate the layout for this fragment
-        bind = FragmentViewPagerBinding.inflate(inflater, container, false)
+        bind = FragmentOnBoardingBinding.inflate(inflater, container, false)
         return binding.root
     }
 
