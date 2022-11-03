@@ -4,7 +4,7 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.arifwidayana.challengechapter4.MainActivity
+import com.arifwidayana.challengechapter4.view.MainActivity
 import com.arifwidayana.challengechapter4.databinding.ItemStocksBinding
 import com.arifwidayana.challengechapter4.model.database.StocksEntity
 import com.arifwidayana.challengechapter4.view.homepage.EditStocksFragment
