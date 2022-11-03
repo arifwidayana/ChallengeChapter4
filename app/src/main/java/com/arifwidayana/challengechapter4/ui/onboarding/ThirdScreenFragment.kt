@@ -9,7 +9,7 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.databinding.FragmentThirdScreenBinding
-import com.arifwidayana.challengechapter4.model.utils.Constant
+import com.arifwidayana.challengechapter4.utils.Constant
 
 class ThirdScreenFragment : Fragment() {
     private var bind: FragmentThirdScreenBinding? = null

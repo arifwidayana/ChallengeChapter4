@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.model.utils
+package com.arifwidayana.challengechapter4.utils
 
 import android.content.Context
 import android.content.SharedPreferences

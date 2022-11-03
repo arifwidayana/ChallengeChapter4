@@ -11,8 +11,8 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.databinding.FragmentRegisterBinding
-import com.arifwidayana.challengechapter4.model.StocksDatabase
-import com.arifwidayana.challengechapter4.model.database.UserEntity
+import com.arifwidayana.challengechapter4.data.model.StocksDatabase
+import com.arifwidayana.challengechapter4.data.model.database.UserEntity
 import kotlinx.coroutines.*
 
 @DelicateCoroutinesApi

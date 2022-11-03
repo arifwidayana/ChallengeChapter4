@@ -10,7 +10,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
-import com.arifwidayana.challengechapter4.model.utils.Constant
+import com.arifwidayana.challengechapter4.utils.Constant
 
 class SplashFragment : Fragment() {
 

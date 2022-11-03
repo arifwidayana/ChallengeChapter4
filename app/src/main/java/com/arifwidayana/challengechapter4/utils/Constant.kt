@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.model.utils
+package com.arifwidayana.challengechapter4.utils
 
 object Constant {
     const val ON_BOARDING = "ONBOARDING"

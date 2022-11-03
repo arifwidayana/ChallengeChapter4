@@ -1,9 +1,8 @@
-package com.arifwidayana.challengechapter4.model.dao
+package com.arifwidayana.challengechapter4.data.model.dao
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import com.arifwidayana.challengechapter4.model.database.StocksEntity
-import kotlinx.coroutines.flow.Flow
+import com.arifwidayana.challengechapter4.data.model.database.StocksEntity
 
 @Dao
 interface StocksDao {

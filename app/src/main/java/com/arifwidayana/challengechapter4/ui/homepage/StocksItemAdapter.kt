@@ -6,7 +6,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.arifwidayana.challengechapter4.ui.MainActivity
 import com.arifwidayana.challengechapter4.databinding.ItemStocksBinding
-import com.arifwidayana.challengechapter4.model.database.StocksEntity
+import com.arifwidayana.challengechapter4.data.model.database.StocksEntity
 import com.arifwidayana.challengechapter4.ui.homepage.edit.EditStocksFragment
 import kotlinx.coroutines.DelicateCoroutinesApi
 

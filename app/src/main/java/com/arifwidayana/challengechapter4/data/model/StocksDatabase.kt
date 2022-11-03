@@ -1,13 +1,13 @@
-package com.arifwidayana.challengechapter4.model
+package com.arifwidayana.challengechapter4.data.model
 
 import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import com.arifwidayana.challengechapter4.model.dao.StocksDao
-import com.arifwidayana.challengechapter4.model.dao.UserDao
-import com.arifwidayana.challengechapter4.model.database.StocksEntity
-import com.arifwidayana.challengechapter4.model.database.UserEntity
+import com.arifwidayana.challengechapter4.data.model.dao.StocksDao
+import com.arifwidayana.challengechapter4.data.model.dao.UserDao
+import com.arifwidayana.challengechapter4.data.model.database.StocksEntity
+import com.arifwidayana.challengechapter4.data.model.database.UserEntity
 
 @Database (entities = [UserEntity::class, StocksEntity::class], version = 1, exportSchema = false)
 abstract class StocksDatabase : RoomDatabase() {

@@ -1,11 +1,10 @@
-package com.arifwidayana.challengechapter4.model.dao
+package com.arifwidayana.challengechapter4.data.model.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.arifwidayana.challengechapter4.model.database.UserEntity
+import com.arifwidayana.challengechapter4.data.model.database.UserEntity
 
 @Dao
 interface UserDao {

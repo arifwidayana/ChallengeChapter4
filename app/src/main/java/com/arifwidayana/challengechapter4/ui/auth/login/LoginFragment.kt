@@ -10,9 +10,9 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.databinding.FragmentLoginBinding
-import com.arifwidayana.challengechapter4.model.StocksDatabase
-import com.arifwidayana.challengechapter4.model.utils.Constant
-import com.arifwidayana.challengechapter4.model.utils.SharedPreference
+import com.arifwidayana.challengechapter4.data.model.StocksDatabase
+import com.arifwidayana.challengechapter4.utils.Constant
+import com.arifwidayana.challengechapter4.utils.SharedPreference
 import kotlinx.coroutines.*
 
 class LoginFragment : Fragment() {

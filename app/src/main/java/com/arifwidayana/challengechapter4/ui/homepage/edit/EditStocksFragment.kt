@@ -7,9 +7,9 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.arifwidayana.challengechapter4.databinding.FragmentEditStocksBinding
-import com.arifwidayana.challengechapter4.model.StocksDatabase
-import com.arifwidayana.challengechapter4.model.database.StocksEntity
-import com.arifwidayana.challengechapter4.model.utils.SharedPreference
+import com.arifwidayana.challengechapter4.data.model.StocksDatabase
+import com.arifwidayana.challengechapter4.data.model.database.StocksEntity
+import com.arifwidayana.challengechapter4.utils.SharedPreference
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.async
