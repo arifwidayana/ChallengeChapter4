@@ -16,6 +16,8 @@ import com.arifwidayana.challengechapter4.model.StocksDatabase
 import com.arifwidayana.challengechapter4.model.database.StocksEntity
 import com.arifwidayana.challengechapter4.model.utils.Constant
 import com.arifwidayana.challengechapter4.model.utils.SharedPreference
+import com.arifwidayana.challengechapter4.ui.homepage.add.AddStocksFragment
+import com.arifwidayana.challengechapter4.ui.homepage.edit.EditStocksFragment
 import kotlinx.coroutines.*
 
 @DelicateCoroutinesApi
