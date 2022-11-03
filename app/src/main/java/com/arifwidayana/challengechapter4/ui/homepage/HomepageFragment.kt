@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.view.homepage
+package com.arifwidayana.challengechapter4.ui.homepage
 
 import android.annotation.SuppressLint
 import android.os.Bundle

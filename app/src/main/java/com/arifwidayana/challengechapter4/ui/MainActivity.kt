@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.view
+package com.arifwidayana.challengechapter4.ui
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle

@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.view.onboarding
+package com.arifwidayana.challengechapter4.ui.onboarding
 
 import android.content.Context
 import android.os.Bundle
