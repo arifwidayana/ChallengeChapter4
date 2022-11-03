@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.ui.login
+package com.arifwidayana.challengechapter4.ui.auth.login
 
 import android.annotation.SuppressLint
 import android.os.Bundle

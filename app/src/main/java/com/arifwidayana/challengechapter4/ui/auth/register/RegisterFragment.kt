@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.ui.login
+package com.arifwidayana.challengechapter4.ui.auth.register
 
 import android.os.Bundle
 import android.text.Editable
