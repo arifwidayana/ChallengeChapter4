@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.ui
+package com.arifwidayana.challengechapter4.ui.splash
 
 import android.content.Context
 import android.os.Bundle
