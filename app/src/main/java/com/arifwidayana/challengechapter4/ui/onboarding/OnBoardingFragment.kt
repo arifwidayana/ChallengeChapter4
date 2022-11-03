@@ -5,7 +5,6 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import com.arifwidayana.challengechapter4.adapter.ViewPagerAdapter
 import com.arifwidayana.challengechapter4.databinding.FragmentOnBoardingBinding
 
 class OnBoardingFragment : Fragment() {
@@ -28,7 +27,7 @@ class OnBoardingFragment : Fragment() {
             ThirdScreenFragment()
         )
 
-        val adapter = ViewPagerAdapter(
+        val adapter = OnBoardingAdapter(
             fragmentList,
             requireActivity().supportFragmentManager,
             lifecycle
