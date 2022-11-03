@@ -9,7 +9,7 @@ import androidx.viewpager2.widget.ViewPager2
 import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.databinding.FragmentSecondScreenBinding
 
-class SecondScreen : Fragment() {
+class SecondScreenFragment : Fragment() {
     private var bind: FragmentSecondScreenBinding? = null
     private val binding get() = bind!!
 

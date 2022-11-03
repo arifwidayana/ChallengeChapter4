@@ -23,9 +23,9 @@ class OnBoardingFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val fragmentList = arrayListOf(
-            FirstScreen(),
-            SecondScreen(),
-            ThirdScreen()
+            FirstScreenFragment(),
+            SecondScreenFragment(),
+            ThirdScreenFragment()
         )
 
         val adapter = ViewPagerAdapter(

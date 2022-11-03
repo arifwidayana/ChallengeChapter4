@@ -11,7 +11,7 @@ import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.databinding.FragmentThirdScreenBinding
 import com.arifwidayana.challengechapter4.model.utils.Constant
 
-class ThirdScreen : Fragment() {
+class ThirdScreenFragment : Fragment() {
     private var bind: FragmentThirdScreenBinding? = null
     private val binding get() = bind!!
 
