@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.data.model
+package com.arifwidayana.challengechapter4.data.datasource
 
 import android.content.Context
 import androidx.room.Database

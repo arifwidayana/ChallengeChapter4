@@ -7,7 +7,7 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.arifwidayana.challengechapter4.databinding.FragmentAddStocksBinding
-import com.arifwidayana.challengechapter4.data.model.StocksDatabase
+import com.arifwidayana.challengechapter4.data.datasource.StocksDatabase
 import com.arifwidayana.challengechapter4.data.model.database.StocksEntity
 import com.arifwidayana.challengechapter4.utils.Constant
 import com.arifwidayana.challengechapter4.utils.SharedPreference

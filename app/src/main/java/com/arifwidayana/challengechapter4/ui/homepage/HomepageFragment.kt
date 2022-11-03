@@ -11,7 +11,7 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.databinding.FragmentHomepageBinding
-import com.arifwidayana.challengechapter4.data.model.StocksDatabase
+import com.arifwidayana.challengechapter4.data.datasource.StocksDatabase
 import com.arifwidayana.challengechapter4.data.model.database.StocksEntity
 import com.arifwidayana.challengechapter4.utils.Constant
 import com.arifwidayana.challengechapter4.utils.SharedPreference
