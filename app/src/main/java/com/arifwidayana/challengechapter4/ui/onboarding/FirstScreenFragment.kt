@@ -8,7 +8,9 @@ import android.view.ViewGroup
 import androidx.viewpager2.widget.ViewPager2
 import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.databinding.FragmentFirstScreenBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class FirstScreenFragment : Fragment() {
     private var bind: FragmentFirstScreenBinding? = null
     private val binding get() = bind!!

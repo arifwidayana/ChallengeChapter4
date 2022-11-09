@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.arifwidayana.challengechapter4.databinding.FragmentAddStocksBinding
-import com.arifwidayana.challengechapter4.data.datasource.StocksDatabase
-import com.arifwidayana.challengechapter4.data.model.database.StocksEntity
+import com.arifwidayana.challengechapter4.data.StocksDatabase
+import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
 import com.arifwidayana.challengechapter4.utils.Constant
 import com.arifwidayana.challengechapter4.utils.SharedPreference
 import kotlinx.coroutines.DelicateCoroutinesApi
@@ -40,7 +40,7 @@ class AddStocksFragment : DialogFragment(){
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         shared = SharedPreference(requireContext())
-        dataStocks = StocksDatabase.getData(requireContext())
+//        dataStocks = StocksDatabase.getInstance(requireContext())
 
         binding.apply {
             btnAddStocks.setOnClickListener {
@@ -68,9 +68,9 @@ class AddStocksFragment : DialogFragment(){
                     user
                 )
 
-                GlobalScope.async {
-                    dataStocks?.stocksDao()?.insertDataStocks(objStocks)
-                }
+//                GlobalScope.async {
+//                    dataStocks?.stocksDao()?.insertStocks(objStocks)
+//                }
                 Toast.makeText(requireContext(), "Add Stocks Success", Toast.LENGTH_SHORT).show()
                 dialog?.dismiss()
             }

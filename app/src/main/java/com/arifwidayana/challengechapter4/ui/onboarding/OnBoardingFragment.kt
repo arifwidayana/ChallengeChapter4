@@ -6,7 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arifwidayana.challengechapter4.databinding.FragmentOnBoardingBinding
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class OnBoardingFragment : Fragment() {
     private var bind: FragmentOnBoardingBinding? = null
     private val binding get() = bind!!

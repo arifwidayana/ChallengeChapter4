@@ -7,8 +7,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
 import com.arifwidayana.challengechapter4.databinding.FragmentEditStocksBinding
-import com.arifwidayana.challengechapter4.data.datasource.StocksDatabase
-import com.arifwidayana.challengechapter4.data.model.database.StocksEntity
+import com.arifwidayana.challengechapter4.data.StocksDatabase
+import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
 import com.arifwidayana.challengechapter4.utils.SharedPreference
 import kotlinx.coroutines.DelicateCoroutinesApi
 import kotlinx.coroutines.GlobalScope
@@ -44,7 +44,7 @@ class EditStocksFragment() : DialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         shared = SharedPreference(requireContext())
-        dataStocks = StocksDatabase.getData(requireContext())
+//        dataStocks = StocksDatabase.getInstance(requireContext())
 
 
         if (this::listStock.isInitialized) {
@@ -81,7 +81,7 @@ class EditStocksFragment() : DialogFragment() {
                     earningsPerShare = epsStocks
                 }
                 GlobalScope.async {
-                    dataStocks?.stocksDao()?.updateDataStocks(listStock)
+                    dataStocks?.stocksDao()?.updateStocks(listStock)
                 }
                 Toast.makeText(requireContext(), "Edit Stocks Success", Toast.LENGTH_SHORT).show()
                 dialog?.dismiss()
@@ -89,7 +89,7 @@ class EditStocksFragment() : DialogFragment() {
 
             btnDelete.setOnClickListener {
                 GlobalScope.async {
-                    dataStocks?.stocksDao()?.deleteDataStocks(listStock)
+//                    dataStocks?.stocksDao()?.deleteStocks(listStock)
                 }
                 Toast.makeText(requireContext(), "Delete Stocks Success", Toast.LENGTH_SHORT).show()
                 dialog?.dismiss()

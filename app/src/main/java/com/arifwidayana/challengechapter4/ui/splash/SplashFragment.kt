@@ -11,7 +11,9 @@ import android.view.ViewGroup
 import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.utils.Constant
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class SplashFragment : Fragment() {
 
     override fun onCreateView(

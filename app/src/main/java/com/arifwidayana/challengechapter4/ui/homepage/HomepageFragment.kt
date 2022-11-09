@@ -11,8 +11,8 @@ import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.databinding.FragmentHomepageBinding
-import com.arifwidayana.challengechapter4.data.datasource.StocksDatabase
-import com.arifwidayana.challengechapter4.data.model.database.StocksEntity
+import com.arifwidayana.challengechapter4.data.StocksDatabase
+import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
 import com.arifwidayana.challengechapter4.utils.Constant
 import com.arifwidayana.challengechapter4.utils.SharedPreference
 import com.arifwidayana.challengechapter4.ui.homepage.add.AddStocksFragment
@@ -40,7 +40,7 @@ class HomepageFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         shared = SharedPreference(requireContext())
-        stocks = StocksDatabase.getData(requireContext())
+//        stocks = StocksDatabase.getInstance(requireContext())
         adapter = StocksItemAdapter()
 
         binding.rvStocks.layoutManager = LinearLayoutManager(requireContext(), LinearLayoutManager.VERTICAL, false)
@@ -76,14 +76,14 @@ class HomepageFragment : Fragment() {
     }
 
     private fun showStocks() {
-        GlobalScope.launch {
-            val listStocks = stocks?.stocksDao()?.getDataStocks(shared.getString(Constant.USER)!!)
-            runBlocking(Dispatchers.Main) {
-                listStocks?.let {
-                    adapter.setData(it)
-                }
-            }
-        }
+//        GlobalScope.launch {
+//            val listStocks = stocks?.stocksDao()?.getStocks(shared.getString(Constant.USER)!!)
+//            runBlocking(Dispatchers.Main) {
+//                listStocks?.let {
+//                    adapter.setData(it)
+//                }
+//            }
+//        }
 
         adapter.setOnClickCallback(object : StocksItemAdapter.OnItemClickCallback{
             override fun onItemClicked(dataStocks: StocksEntity) {
