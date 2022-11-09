@@ -2,19 +2,20 @@ package com.arifwidayana.challengechapter4.data.model.dao
 
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
-import com.arifwidayana.challengechapter4.data.model.database.StocksEntity
+import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StocksDao {
     @Query("SELECT * FROM stock_table WHERE user_stock = :user")
-    fun getDataStocks(user: String): List<StocksEntity>
+    fun getStocks(user: String): Flow<List<StocksEntity>>
 
     @Insert(onConflict = REPLACE)
-    suspend fun insertDataStocks(stocks: StocksEntity): Long
+    suspend fun insertStocks(stocks: StocksEntity)
 
     @Update
-    suspend fun updateDataStocks(stocks: StocksEntity): Int
+    suspend fun updateStocks(stocks: StocksEntity)
 
-    @Delete
-    suspend fun deleteDataStocks(stocks: StocksEntity): Int
+    @Query("DELETE FROM stock_table WHERE id = :id")
+    suspend fun deleteStocks(id: Int)
 }
