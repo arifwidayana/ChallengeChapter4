@@ -7,4 +7,7 @@ object Constant {
     const val PASS = "PASS"
     const val IS_LOGIN = "LOGIN"
     const val PREF = "PREF"
+
+    // DB
+    const val STOCK_DB = "Stocks.db"
 }
