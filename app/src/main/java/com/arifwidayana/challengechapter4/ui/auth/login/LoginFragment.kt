@@ -1,88 +1,65 @@
 package com.arifwidayana.challengechapter4.ui.auth.login
 
-import android.annotation.SuppressLint
-import android.os.Bundle
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
+import com.arifwidayana.challengechapter4.common.Resource
+import com.arifwidayana.challengechapter4.common.base.BaseFragment
+import com.arifwidayana.challengechapter4.data.model.request.LoginRequest
 import com.arifwidayana.challengechapter4.databinding.FragmentLoginBinding
-import com.arifwidayana.challengechapter4.data.datasource.StocksDatabase
-import com.arifwidayana.challengechapter4.utils.Constant
-import com.arifwidayana.challengechapter4.utils.SharedPreference
-import kotlinx.coroutines.*
+import dagger.hilt.android.AndroidEntryPoint
 
-class LoginFragment : Fragment() {
-    private var bind: FragmentLoginBinding? = null
-    private val binding get() = bind!!
-    private var dataUser: StocksDatabase? = null
-    lateinit var shared : SharedPreference
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        bind = FragmentLoginBinding.inflate(inflater, container, false)
-        return binding.root
+@AndroidEntryPoint
+class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
+    FragmentLoginBinding::inflate
+) {
+    override fun initView() {
+        onView()
+        onClick()
     }
 
-    @SuppressLint("FragmentLiveDataObserve")
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        shared = SharedPreference(requireContext())
-        dataUser = StocksDatabase.getData(requireContext())
-
+    private fun onView() {
         binding.apply {
-            btnLogin.setOnClickListener {
-                val user = etUsername.text.toString()
-                val pass = etPassword.text.toString()
+            // do nothing
+        }
+    }
 
-                when {
-                    user.isEmpty() && pass.isEmpty() -> {
-                        tfUsername.error = "Fill this Username"
-                        tfPassword.error = "Fill this Password"
-                    }
-                    user.isEmpty() -> tfUsername.error = "Fill this Username"
-                    pass.isEmpty() -> tfPassword.error = "Fill this Password"
-                    else -> {
-                        CoroutineScope(Dispatchers.Main).launch {
-                            val usersNames = dataUser?.userDao()?.getUsername(user)
-                            when (usersNames?.password) {
-                                pass -> {
-                                    loginSession(user, pass)
-                                    Toast.makeText(requireContext(), "Login Success", Toast.LENGTH_SHORT).show()
-                                    findNavController().navigate(R.id.action_loginFragment_to_homepageFragment)
-                                }
-                                else -> Toast.makeText(requireContext(), "Wrong password!", Toast.LENGTH_SHORT).show()
-                            }
-                        }
-                    }
-                }
-            }
-
+    private fun onClick() {
+        binding.apply {
             tvSignUp.setOnClickListener {
                 findNavController().navigate(R.id.action_loginFragment_to_registerFragment)
             }
-
+            btnLogin.setOnClickListener {
+                loginUser()
+            }
         }
     }
 
-    override fun onStart() {
-        super.onStart()
-        if (shared.getBoolean(Constant.IS_LOGIN)){
-            findNavController().navigate(R.id.action_loginFragment_to_homepageFragment)
+    override fun observeData() {
+        lifecycleScope.launchWhenStarted {
+            viewModelInstance.loginResult.collect {
+                when (it) {
+                    is Resource.Empty -> {}
+                    is Resource.Loading -> {}
+                    is Resource.Success -> {
+                        showMessage(true, "Berhasil")
+                    }
+                    is Resource.Error -> {
+                        showMessage(true, "Gagal")
+                    }
+                }
+            }
         }
     }
 
-    private fun loginSession(username: String, password: String) {
+    private fun loginUser() {
         binding.apply {
-            shared.put(Constant.USER, username)
-            shared.put(Constant.PASS, password)
-            shared.put(Constant.IS_LOGIN, true)
+            viewModelInstance.loginUser(
+                LoginRequest(
+                    username = etUsername.text.toString(),
+                    password = etPassword.text.toString()
+                )
+            )
         }
     }
 }
