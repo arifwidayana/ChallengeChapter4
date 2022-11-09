@@ -10,7 +10,9 @@ import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
 import com.arifwidayana.challengechapter4.databinding.FragmentThirdScreenBinding
 import com.arifwidayana.challengechapter4.utils.Constant
+import dagger.hilt.android.AndroidEntryPoint
 
+@AndroidEntryPoint
 class ThirdScreenFragment : Fragment() {
     private var bind: FragmentThirdScreenBinding? = null
     private val binding get() = bind!!
