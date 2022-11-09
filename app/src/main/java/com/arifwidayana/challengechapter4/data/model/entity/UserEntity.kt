@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.data.model.database
+package com.arifwidayana.challengechapter4.data.model.entity
 
 import android.os.Parcelable
 import androidx.room.ColumnInfo
