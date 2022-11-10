@@ -1,10 +1,8 @@
 package com.arifwidayana.challengechapter4.di
 
 import com.arifwidayana.challengechapter4.data.datasource.LocalDatasource
-import com.arifwidayana.challengechapter4.data.repository.LoginRepository
-import com.arifwidayana.challengechapter4.data.repository.LoginRepositoryImpl
-import com.arifwidayana.challengechapter4.data.repository.RegisterRepository
-import com.arifwidayana.challengechapter4.data.repository.RegisterRepositoryImpl
+import com.arifwidayana.challengechapter4.data.datasource.UserPreferenceDatasource
+import com.arifwidayana.challengechapter4.data.repository.*
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,8 +14,17 @@ import javax.inject.Singleton
 object RepositoryModule {
     @Provides
     @Singleton
-    fun provideLoginRepository(localDatasource: LocalDatasource): LoginRepository {
-        return LoginRepositoryImpl(localDatasource)
+    fun provideSplashRepository(userPreferenceDatasource: UserPreferenceDatasource): SplashRepository {
+        return SplashRepositoryImpl(userPreferenceDatasource)
+    }
+
+    @Provides
+    @Singleton
+    fun provideLoginRepository(
+        localDatasource: LocalDatasource,
+        userPreferenceDatasource: UserPreferenceDatasource
+    ): LoginRepository {
+        return LoginRepositoryImpl(localDatasource, userPreferenceDatasource)
     }
 
     @Provides

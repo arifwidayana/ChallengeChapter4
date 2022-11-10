@@ -1,38 +1,59 @@
 package com.arifwidayana.challengechapter4.ui.splash
 
-import android.content.Context
-import android.os.Bundle
 import android.os.Handler
 import android.os.Looper
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
+import com.arifwidayana.challengechapter4.common.Resource
+import com.arifwidayana.challengechapter4.common.base.BaseFragment
+import com.arifwidayana.challengechapter4.databinding.FragmentSplashBinding
 import com.arifwidayana.challengechapter4.utils.Constant
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
-class SplashFragment : Fragment() {
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
-        Handler(Looper.getMainLooper()).postDelayed({
-            if (onBoardingFinish()) {
-                findNavController().navigate(R.id.action_splashFragment_to_loginFragment)
-            } else {
-                findNavController().navigate(R.id.action_splashFragment_to_viewPagerFragment)
-            }
-        }, 3000)
-        return inflater.inflate(R.layout.fragment_splash, container, false)
+class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(
+    FragmentSplashBinding::inflate
+) {
+    override fun initView() {
+        viewModelInstance.boardingPref()
     }
 
-    private fun onBoardingFinish(): Boolean {
-        val sharedPref = requireActivity().getSharedPreferences(Constant.ON_BOARDING, Context.MODE_PRIVATE)
-        return sharedPref.getBoolean(Constant.FINISHED, false)
+    override fun observeData() {
+        lifecycleScope.launchWhenStarted {
+            viewModelInstance.apply {
+                boardingPrefResult.collect {
+                    if (it is Resource.Success) {
+                        when(it.data) {
+                            !true -> {
+                                moveNavFragment(R.id.action_splashFragment_to_onBoardingFragment)
+                            }
+                            else -> {
+                                usernamePref()
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
+        lifecycleScope.launchWhenStarted {
+            viewModelInstance.usernamePrefResult.collect {
+                if (it is Resource.Success) {
+                    if (it.data != Constant.USERNAME_PREF) {
+                        moveNavFragment(R.id.action_splashFragment_to_onBoardingFragment)
+                    }
+                    else {
+                        moveNavFragment(R.id.action_splashFragment_to_homepageFragment)
+                    }
+                }
+            }
+        }
+    }
+
+    private fun moveNavFragment(navUp: Int) {
+        Handler(Looper.getMainLooper()).postDelayed({
+            findNavController().navigate(navUp)
+        }, 3000)
     }
 }
