@@ -14,14 +14,7 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
     FragmentLoginBinding::inflate
 ) {
     override fun initView() {
-        onView()
         onClick()
-    }
-
-    private fun onView() {
-        binding.apply {
-            // do nothing
-        }
     }
 
     private fun onClick() {
@@ -38,15 +31,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
     override fun observeData() {
         lifecycleScope.launchWhenStarted {
             viewModelInstance.loginResult.collect {
-                when (it) {
-                    is Resource.Empty -> {}
-                    is Resource.Loading -> {}
-                    is Resource.Success -> {
-                        findNavController().navigate(R.id.action_loginFragment_to_homepageFragment)
-                    }
-                    is Resource.Error -> {
-                        showMessage(true, it.message.toString())
-                    }
+                if (it is Resource.Success) {
+                    findNavController().navigate(R.id.action_loginFragment_to_homepageFragment)
                 }
             }
         }

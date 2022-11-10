@@ -40,10 +40,9 @@ class SplashFragment : BaseFragment<FragmentSplashBinding, SplashViewModel>(
         lifecycleScope.launchWhenStarted {
             viewModelInstance.usernamePrefResult.collect {
                 if (it is Resource.Success) {
-                    if (it.data != Constant.USERNAME_PREF) {
-                        moveNavFragment(R.id.action_splashFragment_to_onBoardingFragment)
-                    }
-                    else {
+                    if (it.data == Constant.USERNAME_PREF) {
+                        moveNavFragment(R.id.action_splashFragment_to_loginFragment)
+                    } else {
                         moveNavFragment(R.id.action_splashFragment_to_homepageFragment)
                     }
                 }

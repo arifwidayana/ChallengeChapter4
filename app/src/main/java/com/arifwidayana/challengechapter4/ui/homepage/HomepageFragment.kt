@@ -48,7 +48,7 @@ class HomepageFragment : Fragment() {
 
         showStocks()
         binding.apply {
-            tvName.text = "Hi ${shared.getString(Constant.USER)}"
+            tvName.text = "Hi ${shared.getString(Constant.USERNAME)}"
 
             fabAddStocks.setOnClickListener {
                 AddStocksFragment().show(childFragmentManager, null)
