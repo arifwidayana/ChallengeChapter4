@@ -42,10 +42,10 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
                     is Resource.Empty -> {}
                     is Resource.Loading -> {}
                     is Resource.Success -> {
-                        showMessage(true, "Berhasil")
+                        findNavController().navigate(R.id.action_loginFragment_to_homepageFragment)
                     }
                     is Resource.Error -> {
-                        showMessage(true, "Gagal")
+                        showMessage(true, it.message.toString())
                     }
                 }
             }
