@@ -41,7 +41,7 @@ class UserPreferenceDatasourceImpl @Inject constructor(
 
     override suspend fun getUsername(): Flow<String> {
         return context.dataStore.data.map {
-            it[usernamePref].orEmpty()
+            it[usernamePref] ?: Constant.USERNAME_PREF
         }
     }
 

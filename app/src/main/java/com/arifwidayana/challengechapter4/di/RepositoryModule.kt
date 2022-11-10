@@ -20,6 +20,12 @@ object RepositoryModule {
 
     @Provides
     @Singleton
+    fun provideOnBoardingRepository(userPreferenceDatasource: UserPreferenceDatasource): OnBoardingRepository {
+        return OnBoardingRepositoryImpl(userPreferenceDatasource)
+    }
+
+    @Provides
+    @Singleton
     fun provideLoginRepository(
         localDatasource: LocalDatasource,
         userPreferenceDatasource: UserPreferenceDatasource
