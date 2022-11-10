@@ -1,39 +1,68 @@
 package com.arifwidayana.challengechapter4.ui.auth.register
 
-import android.os.Bundle
-import android.text.Editable
-import android.text.TextWatcher
-import androidx.fragment.app.Fragment
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
-import com.arifwidayana.challengechapter4.R
+import com.arifwidayana.challengechapter4.common.Resource
+import com.arifwidayana.challengechapter4.common.base.BaseFragment
+import com.arifwidayana.challengechapter4.data.model.request.RegisterRequest
 import com.arifwidayana.challengechapter4.databinding.FragmentRegisterBinding
-import com.arifwidayana.challengechapter4.data.StocksDatabase
-import com.arifwidayana.challengechapter4.data.model.entity.UserEntity
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.*
 
 @AndroidEntryPoint
-class RegisterFragment : Fragment() {
-    private var bind: FragmentRegisterBinding? = null
-    private val binding get() = bind!!
-    private var dataUser: StocksDatabase? = null
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        bind = FragmentRegisterBinding.inflate(inflater, container, false)
-        return binding.root
+class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel>(
+    FragmentRegisterBinding::inflate
+) {
+    override fun initView() {
+        onView()
+        onClick()
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
+    private fun onView() {
+        binding.apply {
+            // do nothing
+        }
+    }
 
+    private fun onClick() {
+        binding.apply {
+            btnRegister.setOnClickListener {
+                registerUser()
+            }
+        }
+    }
+
+    private fun registerUser() {
+        binding.apply {
+            viewModelInstance.registerUser(
+                RegisterRequest(
+                    username = etRegisterUsername.text.toString(),
+                    name = etRegisterName.text.toString(),
+                    password = etRegisterPassword.text.toString()
+                )
+            )
+        }
+    }
+
+    override fun observeData() {
+        lifecycleScope.launchWhenStarted {
+            viewModelInstance.registerResult.collect {
+                when(it) {
+                    is Resource.Loading -> {}
+                    is Resource.Empty -> {}
+                    is Resource.Success -> {
+                        showError(true, it.message.toString())
+                        findNavController().popBackStack()
+                    }
+                    is Resource.Error -> {
+                        showMessage(true, it.message.toString())
+                    }
+                }
+            }
+        }
+    }
+    //        override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+//        super.onViewCreated(view, savedInstanceState)
+//
 //        dataUser = StocksDatabase.getInstance(requireContext())
 //
 //        binding.apply {
@@ -122,5 +151,5 @@ class RegisterFragment : Fragment() {
 //                }
 //            }
 //        }
-    }
+//    }
 }
