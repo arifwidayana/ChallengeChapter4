@@ -27,13 +27,13 @@ class LoginViewModel @Inject constructor(
                         (it.data?.username == loginRequest.username) && (it.data.password == loginRequest.password) -> {
                             _loginResult.value = Resource.Success()
                         }
-                        else -> _loginResult.value = Resource.Error()
+                        else -> _loginResult.value = Resource.Error(message = "Username and password is wrong")
                     }
                 }
             }
         } catch (e: Exception) {
             viewModelScope.launch {
-                _loginResult.value = Resource.Error()
+                _loginResult.value = Resource.Error(message = e.message.orEmpty())
             }
         }
     }

@@ -10,5 +10,5 @@ sealed class Resource<T>(
     class Success<T>(data: T? = null, message: String? = null): Resource<T>(data, message)
     class Loading<T>(data: T? = null): Resource<T>(data)
     class Empty<T>(data: T? = null): Resource<T>(data)
-    class Error<T>(exception: Exception? = null, data: T? = null): Resource<T>(data, exception = exception)
+    class Error<T>(exception: Exception? = null, data: T? = null, message: String? = null): Resource<T>(data, exception = exception, message = message)
 }

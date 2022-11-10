@@ -5,6 +5,6 @@ import com.arifwidayana.challengechapter4.data.model.request.LoginRequest
 import kotlinx.coroutines.flow.StateFlow
 
 interface LoginContract {
-    fun loginUser(loginRequest: LoginRequest)
     val loginResult: StateFlow<Resource<Unit>>
+    fun loginUser(loginRequest: LoginRequest)
 }
