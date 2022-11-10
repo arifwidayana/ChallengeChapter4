@@ -1,4 +1,4 @@
-package com.arifwidayana.challengechapter4.ui.onboarding
+package com.arifwidayana.challengechapter4.ui.onboarding.screen
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

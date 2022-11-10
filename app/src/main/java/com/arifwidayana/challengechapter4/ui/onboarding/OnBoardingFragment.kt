@@ -6,6 +6,9 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.arifwidayana.challengechapter4.databinding.FragmentOnBoardingBinding
+import com.arifwidayana.challengechapter4.ui.onboarding.screen.FirstScreenFragment
+import com.arifwidayana.challengechapter4.ui.onboarding.screen.SecondScreenFragment
+import com.arifwidayana.challengechapter4.ui.onboarding.screen.ThirdScreenFragment
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
