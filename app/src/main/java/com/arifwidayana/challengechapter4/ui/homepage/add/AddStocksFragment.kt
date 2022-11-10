@@ -12,8 +12,6 @@ import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
 import com.arifwidayana.challengechapter4.utils.Constant
 import com.arifwidayana.challengechapter4.utils.SharedPreference
 import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
 
 @DelicateCoroutinesApi
 class AddStocksFragment : DialogFragment(){
@@ -53,7 +51,7 @@ class AddStocksFragment : DialogFragment(){
                 val bvStocks = equityStocks/sharesStocks
                 val pbvStocks = priceStocks/bvStocks.toDouble()
                 val epsStocks = netProfitStocks.toDouble()/sharesStocks
-                val user = shared.getString(Constant.USER)
+                val user = shared.getString(Constant.USERNAME)
 
                 val objStocks = StocksEntity(
                     null,
