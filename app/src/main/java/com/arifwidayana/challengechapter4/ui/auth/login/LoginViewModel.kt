@@ -25,6 +25,7 @@ class LoginViewModel @Inject constructor(
                 loginRepository.loginUser(loginRequest).collect {
                     when {
                         (it.data?.username == loginRequest.username) && (it.data.password == loginRequest.password) -> {
+                            loginRepository.setUsernamePref(loginRequest.username)
                             _loginResult.value = Resource.Success()
                         }
                         else -> _loginResult.value = Resource.Error(message = "Username and password is wrong")
