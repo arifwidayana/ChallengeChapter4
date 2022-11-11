@@ -1,12 +1,10 @@
 package com.arifwidayana.challengechapter4.di
 
 import com.arifwidayana.challengechapter4.common.base.BaseGenericViewModel
-import com.arifwidayana.challengechapter4.data.repository.LoginRepository
-import com.arifwidayana.challengechapter4.data.repository.OnBoardingRepository
-import com.arifwidayana.challengechapter4.data.repository.RegisterRepository
-import com.arifwidayana.challengechapter4.data.repository.SplashRepository
+import com.arifwidayana.challengechapter4.data.repository.*
 import com.arifwidayana.challengechapter4.ui.auth.login.LoginViewModel
 import com.arifwidayana.challengechapter4.ui.auth.register.RegisterViewModel
+import com.arifwidayana.challengechapter4.ui.homepage.HomepageViewModel
 import com.arifwidayana.challengechapter4.ui.onboarding.OnBoardingViewModel
 import com.arifwidayana.challengechapter4.ui.splash.SplashViewModel
 import dagger.Module
@@ -47,6 +45,14 @@ object ViewModelModule {
     fun provideRegisterViewModel(registerRepository: RegisterRepository): RegisterViewModel {
         return BaseGenericViewModel(RegisterViewModel(registerRepository)).create(
             RegisterViewModel::class.java
+        )
+    }
+
+    @Provides
+    @FragmentScoped
+    fun provideHomepageViewModel(homepageRepository: HomepageRepository): HomepageViewModel {
+        return BaseGenericViewModel(HomepageViewModel(homepageRepository)).create(
+            HomepageViewModel::class.java
         )
     }
 }

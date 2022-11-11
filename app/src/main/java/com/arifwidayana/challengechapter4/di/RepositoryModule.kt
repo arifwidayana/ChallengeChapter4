@@ -38,4 +38,10 @@ object RepositoryModule {
     fun provideRegisterRepository(localDatasource: LocalDatasource): RegisterRepository {
         return RegisterRepositoryImpl(localDatasource)
     }
+
+    @Provides
+    @Singleton
+    fun provideHomepageRepository(userPreferenceDatasource: UserPreferenceDatasource, localDatasource: LocalDatasource): HomepageRepository {
+        return HomepageRepositoryImpl(userPreferenceDatasource, localDatasource)
+    }
 }
