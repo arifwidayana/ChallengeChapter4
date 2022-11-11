@@ -15,7 +15,7 @@ interface UserPreferenceDatasource {
     suspend fun getBoarding(): Flow<Boolean>
     suspend fun setUsername(username: String)
     suspend fun getUsername(): Flow<String>
-    suspend fun clearData()
+    suspend fun logoutUser()
 }
 
 class UserPreferenceDatasourceImpl @Inject constructor(
@@ -45,9 +45,9 @@ class UserPreferenceDatasourceImpl @Inject constructor(
         }
     }
 
-    override suspend fun clearData() {
+    override suspend fun logoutUser() {
         context.dataStore.edit {
-            it.clear()
+            it.remove(usernamePref)
         }
     }
 
