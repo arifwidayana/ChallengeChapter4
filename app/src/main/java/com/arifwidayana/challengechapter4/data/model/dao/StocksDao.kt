@@ -7,8 +7,8 @@ import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StocksDao {
-    @Query("SELECT * FROM stock_table WHERE user_stock = :user")
-    fun getStocks(user: String): Flow<List<StocksEntity>>
+    @Query("SELECT * FROM stock_table WHERE user_stock = :username")
+    fun getStocks(username: String): Flow<List<StocksEntity>>
 
     @Insert(onConflict = REPLACE)
     suspend fun insertStocks(stocks: StocksEntity)
