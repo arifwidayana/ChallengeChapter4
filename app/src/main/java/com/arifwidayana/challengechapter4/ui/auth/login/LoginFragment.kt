@@ -33,6 +33,8 @@ class LoginFragment : BaseFragment<FragmentLoginBinding, LoginViewModel>(
             viewModelInstance.loginResult.collect {
                 if (it is Resource.Success) {
                     findNavController().navigate(R.id.action_loginFragment_to_homepageFragment)
+                } else {
+                    showMessage(true, it.message)
                 }
             }
         }
