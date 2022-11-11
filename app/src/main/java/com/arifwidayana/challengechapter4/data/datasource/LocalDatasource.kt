@@ -12,7 +12,7 @@ interface LocalDatasource {
     suspend fun insertUser(userEntity: UserEntity)
     suspend fun loginUser(loginRequest: LoginRequest): Flow<UserEntity?>
     suspend fun getUser(username: String): Flow<UserEntity?>
-    suspend fun getStocks(user: String): Flow<List<StocksEntity>>
+    suspend fun getStocks(username: String): Flow<List<StocksEntity>>
     suspend fun insertStocks(stocksEntity: StocksEntity)
     suspend fun updateStocks(stocksEntity: StocksEntity)
     suspend fun deleteStocks(id: Int)
@@ -37,8 +37,8 @@ class LocalDatasourceImpl @Inject constructor(
         return userDao.getUser(username)
     }
 
-    override suspend fun getStocks(user: String): Flow<List<StocksEntity>> {
-        return stocksDao.getStocks(user)
+    override suspend fun getStocks(username: String): Flow<List<StocksEntity>> {
+        return stocksDao.getStocks(username)
     }
 
     override suspend fun insertStocks(stocksEntity: StocksEntity) {
