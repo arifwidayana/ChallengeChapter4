@@ -39,7 +39,6 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding, HomepageViewModel
                 }
                 ivRefresh.setOnClickListener {
                     getStocks()
-                    showError(true, "clicked")
                 }
                 fabAddStocks.setOnClickListener {
                     AddStocksFragment().show(childFragmentManager, null)
@@ -58,9 +57,9 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding, HomepageViewModel
             launchWhenStarted {
                 viewModelInstance.getStocksResult.collect {
                     if (it is Resource.Success) {
-                        val stocksAdapter = StocksItemAdapter()
-                        binding.rvStocks.adapter = stocksAdapter
-                        it.data?.let { it1 -> stocksAdapter.setData(it1) }
+                        adapter = StocksItemAdapter()
+                        binding.rvStocks.adapter = adapter
+                        it.data?.let { it1 -> adapter.setData(it1) }
                         adapter.setOnClickCallback(object : StocksItemAdapter.OnItemClickCallback {
                             override fun onItemClicked(listStock: Int) {
                                 EditStocksFragment(listStock).show(childFragmentManager, null)
