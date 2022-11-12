@@ -12,8 +12,12 @@ import kotlinx.coroutines.DelicateCoroutinesApi
 
 @DelicateCoroutinesApi
 class StocksItemAdapter: RecyclerView.Adapter<StocksItemAdapter.StockHolder>() {
-    private val listStocks = mutableListOf<StocksEntity>()
+    private val listStocks = mutableListOf<StocksEntity?>()
     class StockHolder(val binding: ItemStocksBinding): RecyclerView.ViewHolder(binding.root)
+
+    interface OnItemClickCallback{
+        fun onItemClicked(listStock: Int)
+    }
 
     private lateinit var onClickCallback: OnItemClickCallback
 
@@ -22,25 +26,24 @@ class StocksItemAdapter: RecyclerView.Adapter<StocksItemAdapter.StockHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockHolder {
-        val binding = ItemStocksBinding.inflate(LayoutInflater.from(parent.context))
-        return StockHolder(binding)
+        return StockHolder(ItemStocksBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: StockHolder, position: Int) {
         with(holder.binding) {
-            tvCodeStocks.text = listStocks[position].codeStock
-            tvNameStocks.text = listStocks[position].nameStock
-            tvEquityStocks.text = "Equity: ${listStocks[position].valueEquity.toString()}"
-            tvNetProfitStocks.text = "Net Profit: ${listStocks[position].valueNetProfit.toString()}"
-            tvEpsStocks.text = "EPS: ${listStocks[position].earningsPerShare.toString()}"
-            tvPbvStocks.text = "PBV: ${listStocks[position].priceBookValue.toString()}"
-            tvSharesStocks.text = "Total Shares: ${listStocks[position].shareStock.toString()}"
-            tvSharePriceStocks.text = "+${listStocks[position].sharePrice.toString()}"
+            tvCodeStocks.text = listStocks[position]?.codeStock
+            tvNameStocks.text = listStocks[position]?.nameStock
+            tvEquityStocks.text = "Equity: ${listStocks[position]?.valueEquity.toString()}"
+            tvNetProfitStocks.text = "Net Profit: ${listStocks[position]?.valueNetProfit.toString()}"
+            tvEpsStocks.text = "EPS: ${listStocks[position]?.earningsPerShare.toString()}"
+            tvPbvStocks.text = "PBV: ${listStocks[position]?.priceBookValue.toString()}"
+            tvSharesStocks.text = "Total Shares: ${listStocks[position]?.shareStock.toString()}"
+            tvSharePriceStocks.text = "+${listStocks[position]?.sharePrice.toString()}"
 
-            rvList.setOnClickListener {
+            root.setOnClickListener {
                 val activity = it.context as MainActivity
-                val sendFrag = EditStocksFragment(listStocks[position])
+                val sendFrag = EditStocksFragment(listStocks[position]?.id)
                 sendFrag.show(activity.supportFragmentManager, null)
             }
         }
@@ -50,12 +53,8 @@ class StocksItemAdapter: RecyclerView.Adapter<StocksItemAdapter.StockHolder>() {
         return listStocks.size
     }
 
-    interface OnItemClickCallback{
-        fun onItemClicked(dataStocks: StocksEntity)
-    }
-
     @SuppressLint("NotifyDataSetChanged")
-    fun setData (listStock: List<StocksEntity>){
+    fun setData (listStock: List<StocksEntity?>){
         listStocks.clear()
         listStocks.addAll(listStock)
         notifyDataSetChanged()
