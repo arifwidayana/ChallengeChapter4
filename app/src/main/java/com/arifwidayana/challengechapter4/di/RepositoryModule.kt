@@ -44,4 +44,10 @@ object RepositoryModule {
     fun provideHomepageRepository(userPreferenceDatasource: UserPreferenceDatasource, localDatasource: LocalDatasource): HomepageRepository {
         return HomepageRepositoryImpl(userPreferenceDatasource, localDatasource)
     }
+
+    @Provides
+    @Singleton
+    fun provideAddStocksRepository(localDatasource: LocalDatasource): AddStocksRepository {
+        return AddStocksRepositoryImpl(localDatasource)
+    }
 }

@@ -1,81 +1,74 @@
 package com.arifwidayana.challengechapter4.ui.homepage.add
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
+import com.arifwidayana.challengechapter4.common.Resource
+import com.arifwidayana.challengechapter4.common.base.BaseDialogFragment
+import com.arifwidayana.challengechapter4.data.model.request.AddStocksRequest
 import com.arifwidayana.challengechapter4.databinding.FragmentAddStocksBinding
-import com.arifwidayana.challengechapter4.data.StocksDatabase
-import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
-import com.arifwidayana.challengechapter4.utils.Constant
-import com.arifwidayana.challengechapter4.utils.SharedPreference
-import kotlinx.coroutines.DelicateCoroutinesApi
+import dagger.hilt.android.AndroidEntryPoint
 
-@DelicateCoroutinesApi
-class AddStocksFragment : DialogFragment(){
-    private var bind : FragmentAddStocksBinding? = null
-    private val binding get() = bind!!
-    private var dataStocks : StocksDatabase? = null
-    private lateinit var shared : SharedPreference
-
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        bind = FragmentAddStocksBinding.inflate(inflater, container, false)
-        return binding.root
+@AndroidEntryPoint
+class AddStocksFragment() : BaseDialogFragment<FragmentAddStocksBinding, AddStocksViewModel>(
+    FragmentAddStocksBinding::inflate
+) {
+    override fun initView() {
+        onClick()
     }
 
-    override fun onResume() {
-        super.onResume()
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        shared = SharedPreference(requireContext())
-//        dataStocks = StocksDatabase.getInstance(requireContext())
-
+    private fun onClick() {
         binding.apply {
             btnAddStocks.setOnClickListener {
-                val codeStocks = etCodeStocks.text.toString()
-                val nameStocks = etNameStocks.text.toString()
-                val equityStocks = etEquityStocks.text.toString().toInt()
-                val netProfitStocks = etNetProfitStocks.text.toString().toInt()
-                val priceStocks = etPriceShareStocks.text.toString().toInt()
-                val sharesStocks = etShareStocks.text.toString().toInt()
-                val bvStocks = equityStocks/sharesStocks
-                val pbvStocks = priceStocks/bvStocks.toDouble()
-                val epsStocks = netProfitStocks.toDouble()/sharesStocks
-                val user = shared.getString(Constant.USERNAME)
-
-                val objStocks = StocksEntity(
-                    null,
-                    codeStocks,
-                    nameStocks,
-                    equityStocks,
-                    netProfitStocks,
-                    pbvStocks,
-                    epsStocks,
-                    priceStocks,
-                    sharesStocks,
-                    user
-                )
-
-//                GlobalScope.async {
-//                    dataStocks?.stocksDao()?.insertStocks(objStocks)
-//                }
-                Toast.makeText(requireContext(), "Add Stocks Success", Toast.LENGTH_SHORT).show()
-                dialog?.dismiss()
+                addStocks()
             }
-
             btnCancelSave.setOnClickListener {
-                Toast.makeText(requireContext(), "You have canceled additional stocks", Toast.LENGTH_SHORT).show()
-                dialog?.dismiss()
+                showMessage(true, "You have canceled to add stocks")
+                dismiss()
+            }
+        }
+    }
+
+    private fun addStocks() {
+        binding.apply {
+            viewModelInstance.insertStocks(
+                AddStocksRequest(
+                    codeStocks = etCodeStocks.text.toString(),
+                    nameStocks = etNameStocks.text.toString(),
+                    valueEquity = etEquityStocks.text.toString().toInt(),
+                    valueNetProfit = etNetProfitStocks.text.toString().toInt(),
+                    priceBookValue = calculatePbv(),
+                    earningsPerShare = calculateEps(),
+                    shareValue = etShareStocks.text.toString().toInt(),
+                    sharePrice = etPriceShareStocks.text.toString().toInt()
+                )
+            )
+        }
+    }
+
+    private fun calculatePbv(): Double {
+        binding.apply {
+            val equityStocks = etEquityStocks.text.toString().toInt()
+            val sharesStocks = etShareStocks.text.toString().toInt()
+            val priceStocks = etPriceShareStocks.text.toString().toInt()
+            val bvStocks = equityStocks/sharesStocks
+            return priceStocks/bvStocks.toDouble()
+        }
+    }
+
+    private fun calculateEps(): Double {
+        binding.apply {
+            val sharesStocks = etShareStocks.text.toString().toInt()
+            val netProfitStocks = etNetProfitStocks.text.toString().toInt()
+            return netProfitStocks.toDouble()/sharesStocks
+        }
+    }
+
+    override fun observeData() {
+        lifecycleScope.launchWhenStarted {
+            viewModelInstance.insertStocksResult.collect {
+                if (it is Resource.Success) {
+                    showMessage(true, "Add stocks success")
+                    dismiss()
+                }
             }
         }
     }
