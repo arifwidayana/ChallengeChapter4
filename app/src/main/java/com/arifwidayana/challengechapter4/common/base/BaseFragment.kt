@@ -21,9 +21,6 @@ abstract class BaseFragment<VB: ViewBinding, VM: ViewModel>(
     @Inject
     protected lateinit var viewModelInstance: VM
 
-    fun getViewBinding(): VB = binding
-    fun getViewModel(): VM = viewModelInstance
-
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
