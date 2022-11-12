@@ -10,7 +10,6 @@ import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
 import com.arifwidayana.challengechapter4.ui.homepage.edit.EditStocksFragment
 import kotlinx.coroutines.DelicateCoroutinesApi
 
-@DelicateCoroutinesApi
 class StocksItemAdapter: RecyclerView.Adapter<StocksItemAdapter.StockHolder>() {
     private val listStocks = mutableListOf<StocksEntity?>()
     class StockHolder(val binding: ItemStocksBinding): RecyclerView.ViewHolder(binding.root)
@@ -29,6 +28,7 @@ class StocksItemAdapter: RecyclerView.Adapter<StocksItemAdapter.StockHolder>() {
         return StockHolder(ItemStocksBinding.inflate(LayoutInflater.from(parent.context)))
     }
 
+    @DelicateCoroutinesApi
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: StockHolder, position: Int) {
         with(holder.binding) {
