@@ -1,100 +1,106 @@
 package com.arifwidayana.challengechapter4.ui.homepage.edit
 
-import android.os.Bundle
-import android.view.LayoutInflater
-import android.view.View
-import android.view.ViewGroup
-import android.widget.Toast
-import androidx.fragment.app.DialogFragment
+import androidx.lifecycle.lifecycleScope
+import com.arifwidayana.challengechapter4.common.Resource
+import com.arifwidayana.challengechapter4.common.base.BaseDialogFragment
 import com.arifwidayana.challengechapter4.databinding.FragmentEditStocksBinding
-import com.arifwidayana.challengechapter4.data.StocksDatabase
-import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
-import com.arifwidayana.challengechapter4.utils.SharedPreference
-import kotlinx.coroutines.DelicateCoroutinesApi
-import kotlinx.coroutines.GlobalScope
-import kotlinx.coroutines.async
+import com.arifwidayana.challengechapter4.data.model.request.EditStocksRequest
+import com.arifwidayana.challengechapter4.utils.calculateEps
+import com.arifwidayana.challengechapter4.utils.calculatePbv
+import dagger.hilt.android.AndroidEntryPoint
 
-@DelicateCoroutinesApi
-class EditStocksFragment() : DialogFragment() {
-    private var bind : FragmentEditStocksBinding? = null
-    private val binding get() = bind!!
-    private var dataStocks : StocksDatabase? = null
-    private lateinit var shared : SharedPreference
-    lateinit var listStock : StocksEntity
+@AndroidEntryPoint
+class EditStocksFragment(idStocks: Int?) :
+    BaseDialogFragment<FragmentEditStocksBinding, EditStocksViewModel>(
+        FragmentEditStocksBinding::inflate
+    ) {
+    private val idStocksData = idStocks
 
-    constructor(liststocks: StocksEntity): this() {
-        this.listStock = liststocks
+    override fun initView() {
+        onView()
+        onClick()
     }
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        // Inflate the layout for this fragment
-        bind = FragmentEditStocksBinding.inflate(inflater, container, false)
-        return binding.root
+    private fun onView() {
+        viewModelInstance.getStocksById(idStocksData ?: 0)
     }
 
-    override fun onResume() {
-        super.onResume()
-        dialog?.window?.setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT)
-        dialog?.window?.setBackgroundDrawableResource(android.R.color.transparent)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        shared = SharedPreference(requireContext())
-//        dataStocks = StocksDatabase.getInstance(requireContext())
-
-
-        if (this::listStock.isInitialized) {
-            binding.apply {
-                etEditCodeStocks.setText(listStock.codeStock.toString())
-                etEditNameStocks.setText(listStock.nameStock.toString())
-                etEditEquityStocks.setText(listStock.valueEquity.toString())
-                etEditNetProfitStocks.setText(listStock.valueNetProfit.toString())
-                etPbvStocks.setText(listStock.priceBookValue.toString())
-                etEpsStocks.setText(listStock.earningsPerShare.toString())
-                etEditPriceShareStocks.setText(listStock.sharePrice.toString())
-                etEditShareStocks.setText(listStock.shareStock.toString())
-            }
-        }
+    private fun onClick() {
         binding.apply {
             btnEditStocks.setOnClickListener {
-                val codeStocks =  etEditCodeStocks.text.toString()
-                val nameStocks = etEditNameStocks.text.toString()
-                val equityStocks = etEditEquityStocks.text.toString().toInt()
-                val netProfitStocks = etEditNetProfitStocks.text.toString().toInt()
-                val priceStocks = etEditPriceShareStocks.text.toString().toInt()
-                val sharesStocks = etEditShareStocks.text.toString().toInt()
-                val bvStocks = equityStocks/sharesStocks
-                val pbvStocks = priceStocks/bvStocks.toDouble()
-                val epsStocks = netProfitStocks.toDouble()/sharesStocks
-                listStock.apply {
-                    codeStock = codeStocks
-                    nameStock = nameStocks
-                    valueEquity = equityStocks
-                    valueNetProfit= netProfitStocks
-                    sharePrice = priceStocks
-                    shareStock = sharesStocks
-                    priceBookValue = pbvStocks
-                    earningsPerShare = epsStocks
-                }
-                GlobalScope.async {
-                    dataStocks?.stocksDao()?.updateStocks(listStock)
-                }
-                Toast.makeText(requireContext(), "Edit Stocks Success", Toast.LENGTH_SHORT).show()
-                dialog?.dismiss()
+                editStocks()
             }
-
-            btnDelete.setOnClickListener {
-                GlobalScope.async {
-//                    dataStocks?.stocksDao()?.deleteStocks(listStock)
-                }
-                Toast.makeText(requireContext(), "Delete Stocks Success", Toast.LENGTH_SHORT).show()
-                dialog?.dismiss()
+            btnDeleteStocks.setOnClickListener {
+                deleteStocks()
             }
         }
     }
 
+    private fun editStocks() {
+        binding.apply {
+            viewModelInstance.updateStocks(
+                EditStocksRequest(
+                    id = idStocksData ?: 0,
+                    codeStocks = etEditCodeStocks.text.toString(),
+                    nameStocks = etEditNameStocks.text.toString(),
+                    valueEquity = etEditEquityStocks.text.toString().toInt(),
+                    valueNetProfit = etEditNetProfitStocks.text.toString().toInt(),
+                    priceBookValue = calculatePbv(
+                        equityStocks = etEditEquityStocks.text.toString().toInt(),
+                        sharesStocks = etEditShareStocks.text.toString().toInt(),
+                        priceStocks = etEditPriceShareStocks.text.toString().toInt()
+                    ),
+                    earningsPerShare = calculateEps(
+                        sharesStocks = etEditShareStocks.text.toString().toInt(),
+                        netProfitStocks = etEditNetProfitStocks.text.toString().toInt()
+                    ),
+                    shareValue = etEditShareStocks.text.toString().toInt(),
+                    sharePrice = etEditPriceShareStocks.text.toString().toInt()
+                )
+            )
+        }
+    }
+
+    private fun deleteStocks() {
+        viewModelInstance.deleteStocks(idStocksData ?: 0)
+    }
+
+    override fun observeData() {
+        lifecycleScope.apply {
+            with(viewModelInstance) {
+                launchWhenStarted {
+                    getStocksByIdResult.collect {
+                        binding.apply {
+                            it.data?.let { result ->
+                                etEditCodeStocks.setText(result.codeStock)
+                                etEditNameStocks.setText(result.nameStock)
+                                etEditEquityStocks.setText(result.valueEquity.toString())
+                                etEditNetProfitStocks.setText(result.valueNetProfit.toString())
+                                etPbvStocks.setText(result.priceBookValue.toString())
+                                etEpsStocks.setText(result.earningsPerShare.toString())
+                                etEditPriceShareStocks.setText(result.sharePrice.toString())
+                                etEditShareStocks.setText(result.shareStock.toString())
+                            }
+                        }
+                    }
+                }
+                launchWhenStarted {
+                    updateStocksResult.collect {
+                        if (it is Resource.Success) {
+                            showError(true, it.message)
+                            dismiss()
+                        }
+                    }
+                }
+                launchWhenStarted {
+                    deleteStocksResult.collect {
+                        if (it is Resource.Success) {
+                            showError(true, it.message)
+                            dismiss()
+                        }
+                    }
+                }
+            }
+        }
+    }
 }

@@ -1,0 +1,13 @@
+package com.arifwidayana.challengechapter4.data.model.request
+
+data class EditStocksRequest(
+    val id: Int,
+    val codeStocks: String,
+    val nameStocks: String,
+    val valueEquity: Int,
+    val valueNetProfit: Int,
+    val priceBookValue: Double,
+    val earningsPerShare: Double,
+    val shareValue: Int,
+    val sharePrice: Int,
+)

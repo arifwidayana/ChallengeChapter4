@@ -50,4 +50,10 @@ object RepositoryModule {
     fun provideAddStocksRepository(localDatasource: LocalDatasource): AddStocksRepository {
         return AddStocksRepositoryImpl(localDatasource)
     }
+
+    @Provides
+    @Singleton
+    fun provideEditStocksRepository(localDatasource: LocalDatasource): EditStocksRepository {
+        return EditStocksRepositoryImpl (localDatasource)
+    }
 }

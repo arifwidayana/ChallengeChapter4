@@ -6,6 +6,7 @@ import com.arifwidayana.challengechapter4.ui.auth.login.LoginViewModel
 import com.arifwidayana.challengechapter4.ui.auth.register.RegisterViewModel
 import com.arifwidayana.challengechapter4.ui.homepage.HomepageViewModel
 import com.arifwidayana.challengechapter4.ui.homepage.add.AddStocksViewModel
+import com.arifwidayana.challengechapter4.ui.homepage.edit.EditStocksViewModel
 import com.arifwidayana.challengechapter4.ui.onboarding.OnBoardingViewModel
 import com.arifwidayana.challengechapter4.ui.splash.SplashViewModel
 import dagger.Module
@@ -59,9 +60,17 @@ object ViewModelModule {
 
     @Provides
     @FragmentScoped
-    fun provideAddStockViewModel(addStocksRepository: AddStocksRepository, homepageRepository: HomepageRepository): AddStocksViewModel {
+    fun provideAddStocksViewModel(addStocksRepository: AddStocksRepository, homepageRepository: HomepageRepository): AddStocksViewModel {
         return BaseGenericViewModel(AddStocksViewModel(addStocksRepository, homepageRepository)).create(
             AddStocksViewModel::class.java
+        )
+    }
+
+    @Provides
+    @FragmentScoped
+    fun provideEditStocksViewModel(editStocksRepository: EditStocksRepository, homepageRepository: HomepageRepository): EditStocksViewModel {
+        return BaseGenericViewModel(EditStocksViewModel(editStocksRepository, homepageRepository)).create(
+            EditStocksViewModel::class.java
         )
     }
 }
