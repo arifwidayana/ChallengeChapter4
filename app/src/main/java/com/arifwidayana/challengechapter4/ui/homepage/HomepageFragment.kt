@@ -9,9 +9,7 @@ import com.arifwidayana.challengechapter4.databinding.FragmentHomepageBinding
 import com.arifwidayana.challengechapter4.ui.homepage.add.AddStocksFragment
 import com.arifwidayana.challengechapter4.ui.homepage.edit.EditStocksFragment
 import dagger.hilt.android.AndroidEntryPoint
-import kotlinx.coroutines.DelicateCoroutinesApi
 
-@OptIn(DelicateCoroutinesApi::class)
 @AndroidEntryPoint
 class HomepageFragment : BaseFragment<FragmentHomepageBinding, HomepageViewModel>(
     FragmentHomepageBinding::inflate
@@ -57,14 +55,11 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding, HomepageViewModel
             launchWhenStarted {
                 viewModelInstance.getStocksResult.collect {
                     if (it is Resource.Success) {
-                        adapter = StocksItemAdapter()
+                        adapter = StocksItemAdapter { data ->
+                            EditStocksFragment(data.id).show(childFragmentManager, null)
+                        }
                         binding.rvStocks.adapter = adapter
                         it.data?.let { it1 -> adapter.setData(it1) }
-                        adapter.setOnClickCallback(object : StocksItemAdapter.OnItemClickCallback {
-                            override fun onItemClicked(listStock: Int) {
-                                EditStocksFragment(listStock).show(childFragmentManager, null)
-                            }
-                        })
                     }
                 }
             }
