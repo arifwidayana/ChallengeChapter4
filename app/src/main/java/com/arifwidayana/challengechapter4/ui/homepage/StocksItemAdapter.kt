@@ -4,18 +4,38 @@ import android.annotation.SuppressLint
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
-import com.arifwidayana.challengechapter4.ui.MainActivity
 import com.arifwidayana.challengechapter4.databinding.ItemStocksBinding
 import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
-import com.arifwidayana.challengechapter4.ui.homepage.edit.EditStocksFragment
 import kotlinx.coroutines.DelicateCoroutinesApi
 
-class StocksItemAdapter: RecyclerView.Adapter<StocksItemAdapter.StockHolder>() {
+@SuppressLint("SetTextI18n")
+class StocksItemAdapter(private val onClick: (StocksEntity) -> Unit): RecyclerView.Adapter<StocksItemAdapter.StockHolder>() {
     private val listStocks = mutableListOf<StocksEntity?>()
-    class StockHolder(val binding: ItemStocksBinding): RecyclerView.ViewHolder(binding.root)
+    class StockHolder(
+        private val binding: ItemStocksBinding,
+        private val onClick: (StocksEntity) -> Unit
+    ): RecyclerView.ViewHolder(binding.root) {
+        fun bind(stocksEntity: StocksEntity) {
+            binding.apply {
+                with(stocksEntity) {
+                    tvCodeStocks.text = codeStock
+                    tvNameStocks.text = nameStock
+                    tvEquityStocks.text = "Equity: $valueEquity"
+                    tvNetProfitStocks.text = "Net Profit: $valueNetProfit"
+                    tvEpsStocks.text = "EPS: $priceBookValue"
+                    tvPbvStocks.text = "PBV: $earningsPerShare"
+                    tvSharesStocks.text = "Total Shares: $shareStock"
+                    tvSharePriceStocks.text = "+$sharePrice"
+                    root.setOnClickListener {
+                        onClick(stocksEntity)
+                    }
+                }
+            }
+        }
+    }
 
     interface OnItemClickCallback{
-        fun onItemClicked(listStock: Int)
+        fun onItemClicked()
     }
 
     private lateinit var onClickCallback: OnItemClickCallback
@@ -25,28 +45,13 @@ class StocksItemAdapter: RecyclerView.Adapter<StocksItemAdapter.StockHolder>() {
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockHolder {
-        return StockHolder(ItemStocksBinding.inflate(LayoutInflater.from(parent.context)))
+        return StockHolder(ItemStocksBinding.inflate(LayoutInflater.from(parent.context)), onClick)
     }
 
     @DelicateCoroutinesApi
     @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: StockHolder, position: Int) {
-        with(holder.binding) {
-            tvCodeStocks.text = listStocks[position]?.codeStock
-            tvNameStocks.text = listStocks[position]?.nameStock
-            tvEquityStocks.text = "Equity: ${listStocks[position]?.valueEquity.toString()}"
-            tvNetProfitStocks.text = "Net Profit: ${listStocks[position]?.valueNetProfit.toString()}"
-            tvEpsStocks.text = "EPS: ${listStocks[position]?.earningsPerShare.toString()}"
-            tvPbvStocks.text = "PBV: ${listStocks[position]?.priceBookValue.toString()}"
-            tvSharesStocks.text = "Total Shares: ${listStocks[position]?.shareStock.toString()}"
-            tvSharePriceStocks.text = "+${listStocks[position]?.sharePrice.toString()}"
-
-            root.setOnClickListener {
-                val activity = it.context as MainActivity
-                val sendFrag = EditStocksFragment(listStocks[position]?.id)
-                sendFrag.show(activity.supportFragmentManager, null)
-            }
-        }
+        listStocks[position]?.let { holder.bind(it) }
     }
 
     override fun getItemCount(): Int {
