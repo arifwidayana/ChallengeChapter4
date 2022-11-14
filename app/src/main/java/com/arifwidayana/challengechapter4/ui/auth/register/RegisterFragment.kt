@@ -1,7 +1,6 @@
 package com.arifwidayana.challengechapter4.ui.auth.register
 
 import androidx.activity.OnBackPressedCallback
-import androidx.activity.addCallback
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
@@ -24,10 +23,11 @@ class RegisterFragment : BaseFragment<FragmentRegisterBinding, RegisterViewModel
             btnRegister.setOnClickListener {
                 registerUser()
             }
-            requireActivity().onBackPressedDispatcher.addCallback {
-                handleOnBackPressed()
-                findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
-            }
+            requireActivity().onBackPressedDispatcher.addCallback(object : OnBackPressedCallback(true) {
+                override fun handleOnBackPressed() {
+                    findNavController().navigate(R.id.action_registerFragment_to_loginFragment)
+                }
+            })
         }
     }
 
