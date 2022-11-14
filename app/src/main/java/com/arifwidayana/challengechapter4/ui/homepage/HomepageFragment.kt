@@ -1,5 +1,7 @@
 package com.arifwidayana.challengechapter4.ui.homepage
 
+import android.os.Handler
+import android.os.Looper
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import com.arifwidayana.challengechapter4.R
@@ -60,6 +62,9 @@ class HomepageFragment : BaseFragment<FragmentHomepageBinding, HomepageViewModel
                         }
                         binding.rvStocks.adapter = adapter
                         it.data?.let { it1 -> adapter.setData(it1) }
+                        Handler(Looper.getMainLooper()).postDelayed({
+                            viewModelInstance.getStocks()
+                        }, 3000)
                     }
                 }
             }
