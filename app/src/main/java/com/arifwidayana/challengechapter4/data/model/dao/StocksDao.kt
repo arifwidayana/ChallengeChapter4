@@ -3,14 +3,15 @@ package com.arifwidayana.challengechapter4.data.model.dao
 import androidx.room.*
 import androidx.room.OnConflictStrategy.REPLACE
 import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
+import com.arifwidayana.challengechapter4.utils.Constant
 import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface StocksDao {
-    @Query("SELECT * FROM stock_table WHERE user_stock = :username")
+    @Query(Constant.GET_STOCKS)
     fun getStocks(username: String): Flow<List<StocksEntity?>>
 
-    @Query("SELECT * FROM stock_table WHERE id = :idStocks")
+    @Query(Constant.GET_STOCKS_BY_ID)
     fun getStocksById(idStocks: Int): Flow<StocksEntity?>
 
     @Insert(onConflict = REPLACE)
@@ -19,6 +20,6 @@ interface StocksDao {
     @Update
     suspend fun updateStocks(stocks: StocksEntity?)
 
-    @Query("DELETE FROM stock_table WHERE id = :idStocks")
+    @Query(Constant.DELETE_STOCKS)
     suspend fun deleteStocks(idStocks: Int)
 }
