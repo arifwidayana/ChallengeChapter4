@@ -9,7 +9,6 @@ import com.arifwidayana.challengechapter4.data.repository.RegisterRepository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -21,7 +20,6 @@ class RegisterViewModel @Inject constructor(
     override val registerResult: StateFlow<Resource<Unit>> = _registerResult
 
     override fun registerUser(registerRequest: RegisterRequest) {
-        _registerResult.value = Resource.Loading()
         try {
             viewModelScope.launch {
                 registerRepository.getUser(registerRequest.username).collect {

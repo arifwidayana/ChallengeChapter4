@@ -20,7 +20,6 @@ class LoginViewModel @Inject constructor(
     override val loginResult: StateFlow<Resource<Unit>> = _loginResult
 
     override fun loginUser(loginRequest: LoginRequest) {
-        _loginResult.value = Resource.Loading()
         try {
             viewModelScope.launch {
                 loginRepository.loginUser(loginRequest).collect {
