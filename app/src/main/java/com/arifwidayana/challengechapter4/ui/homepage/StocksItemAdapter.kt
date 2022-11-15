@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.arifwidayana.challengechapter4.databinding.ItemStocksBinding
 import com.arifwidayana.challengechapter4.data.model.entity.StocksEntity
-import kotlinx.coroutines.DelicateCoroutinesApi
 
 @SuppressLint("SetTextI18n")
 class StocksItemAdapter(private val onClick: (StocksEntity) -> Unit): RecyclerView.Adapter<StocksItemAdapter.StockHolder>() {
@@ -34,22 +33,10 @@ class StocksItemAdapter(private val onClick: (StocksEntity) -> Unit): RecyclerVi
         }
     }
 
-    interface OnItemClickCallback{
-        fun onItemClicked()
-    }
-
-    private lateinit var onClickCallback: OnItemClickCallback
-
-    fun setOnClickCallback(onItemClickCallback: OnItemClickCallback){
-        this.onClickCallback = onItemClickCallback
-    }
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): StockHolder {
         return StockHolder(ItemStocksBinding.inflate(LayoutInflater.from(parent.context)), onClick)
     }
 
-    @DelicateCoroutinesApi
-    @SuppressLint("SetTextI18n")
     override fun onBindViewHolder(holder: StockHolder, position: Int) {
         listStocks[position]?.let { holder.bind(it) }
     }

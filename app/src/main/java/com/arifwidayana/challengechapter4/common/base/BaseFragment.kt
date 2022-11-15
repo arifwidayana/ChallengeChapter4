@@ -47,18 +47,6 @@ abstract class BaseFragment<VB: ViewBinding, VM: ViewModel>(
     abstract fun initView()
     abstract fun observeData()
 
-    override fun showContent(isVisible: Boolean) {
-        //do nothing
-    }
-
-    override fun showLoading(isVisible: Boolean) {
-        //do nothing
-    }
-
-    override fun showContentEmpty(isVisible: Boolean) {
-        //do nothing
-    }
-
     override fun showError(isErrorEnabled: Boolean, msg: String?) {
         when{
             isErrorEnabled -> {

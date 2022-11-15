@@ -18,8 +18,7 @@ class FirstScreenFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
-        // Inflate the layout for this fragment
+    ): View{
         bind = FragmentFirstScreenBinding.inflate(inflater, container, false)
         return binding.root
     }
@@ -27,8 +26,10 @@ class FirstScreenFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         val firstScreen = activity?.findViewById<ViewPager2>(R.id.vp_on_boarding)
-        binding.tvFirstStep.setOnClickListener {
-            firstScreen?.currentItem = 1
+        binding.apply {
+            tvFirstStep.setOnClickListener {
+                firstScreen?.currentItem = 1
+            }
         }
     }
 }
