@@ -1,12 +1,9 @@
 package com.arifwidayana.challengechapter4.data.model.entity
 
-import android.os.Parcelable
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import kotlinx.parcelize.Parcelize
 
-@Parcelize
 @Entity(tableName = "stock_table")
 data class StocksEntity(
     @PrimaryKey(autoGenerate = true)
@@ -29,4 +26,4 @@ data class StocksEntity(
     var shareStock: Int?,
     @ColumnInfo(name = "user_stock")
     var userStock: String?
-) : Parcelable
+)
